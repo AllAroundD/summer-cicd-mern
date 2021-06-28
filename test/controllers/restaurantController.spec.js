@@ -53,7 +53,7 @@ describe("restaurantController", () => {
       await restaurantController.findById(req, res);
       await console.log("---"); //adding this due to
       // Assert
-      expect(res.status).to.have.been.calledWith(422);
+      expect(res.status).to.have.been.calledWith(423);
       expect(statusJsonSpy).to.have.been.calledWith("error message");
     });
   });
