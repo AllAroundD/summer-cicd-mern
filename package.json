@@ -9,6 +9,7 @@
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
+    "seed": "node seeds/restaurantSeeds.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint . --ext .js,.jsx",
     "test:mocha": "mocha 'test/**/*.spec.js'",
@@ -17,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonathanjwatson/summer-cicd-mern.git"
+    "url": "git+https://github.com/AllAroundD/summer-cicd-mern.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonathanjwatson/summer-cicd-mern/issues"
+    "url": "https://github.com/AllAroundD/summer-cicd-mern/issues"
   },
-  "homepage": "https://github.com/jonathanjwatson/summer-cicd-mern#readme",
+  "homepage": "https://github.com/AllAroundD/summer-cicd-mern#readme",
   "dependencies": {
     "express": "^4.17.1",
     "if-env": "^1.0.4",

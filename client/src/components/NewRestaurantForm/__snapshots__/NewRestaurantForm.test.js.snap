@@ -10,13 +10,60 @@ exports[`NewRestaurantForm matches snapshot 1`] = `
         class="form-label"
         for="name"
       >
-        Name
+        Name: *
       </label>
       <input
         class="form-control"
         data-testid="restaurant-name"
         id="name"
         name="name"
+        required=""
+        type="text"
+        value=""
+      />
+      <label
+        class="form-label"
+        for="address"
+      >
+        Address: *
+      </label>
+      <input
+        class="form-control"
+        data-testid="restaurant-address"
+        id="address"
+        name="address"
+        required=""
+        type="text"
+        value=""
+      />
+      <label
+        class="form-label"
+        for="phone"
+      >
+        Phone: *
+      </label>
+      <input
+        class="form-control"
+        data-testid="restaurant-phone"
+        id="phone"
+        maxlength="12"
+        name="phone"
+        required=""
+        type="text"
+        value=""
+      />
+      <label
+        class="form-label"
+        for="cuisine"
+      >
+        Cuisine: *
+      </label>
+      <input
+        class="form-control"
+        data-testid="restaurant-cuisine"
+        id="cuisine"
+        name="cuisine"
+        required=""
         type="text"
         value=""
       />
@@ -26,6 +73,7 @@ exports[`NewRestaurantForm matches snapshot 1`] = `
     >
       <button
         class="btn btn-primary"
+        disabled=""
         type="submit"
       >
         Submit
