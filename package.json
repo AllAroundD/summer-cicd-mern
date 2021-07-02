@@ -9,11 +9,17 @@
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
+<<<<<<< feature/front-end
     "seed": "node seeds/restaurantSeeds.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint . --ext .js,.jsx",
     "test:mocha": "mocha 'test/**/*.spec.js'",
     "test:jest": "cd client && npm run test:jest",
+=======
+    "heroku-postbuild": "npm run build",
+    "lint": "eslint . --ext .js,.jsx",
+    "test:mocha": "mocha 'test/**/*.spec.js'",
+>>>>>>> develop
     "coverage": "nyc npm run test:mocha"
   },
   "repository": {

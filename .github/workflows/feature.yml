@@ -23,6 +23,11 @@ jobs:
       - run: echo "This is a feature branch."
       - run: npm ci
       - run: npm run lint
+<<<<<<< feature/front-end
     # - run: npm ci
     # - run: npm run build --if-present
     # - run: npm test
+=======
+      # - run: npm run build --if-present
+      # - run: npm run test:mocha
+>>>>>>> develop
