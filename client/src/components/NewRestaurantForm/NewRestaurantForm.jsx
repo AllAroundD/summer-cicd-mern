@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
+import validatePhoneNumber from "../../utils/validatePhoneNumber";
 
 const NewRestaurantForm = () => {
   const [name, setName] = useState("");
-
   const [newRestaurant, setNewRestaurant] = useState({
     name: "",
     address: "",
     phone: "",
     cuisine: "",
   });
+  const [error, setError] = useState("");
+
+  const isInvalid =
+    newRestaurant.name === "" ||
+    newRestaurant.address === "" ||
+    newRestaurant.phone === "" ||
+    !validatePhoneNumber(newRestaurant.phone) ||
+    newRestaurant.cuisine === "";
 
   const onChange = (name) => {
     return ({ target: { value } }) => {
@@ -21,13 +29,18 @@ const NewRestaurantForm = () => {
   };
 
   const saveFormData = async () => {
+    let status;
     axios
       .post("/api/restaurants", newRestaurant)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        alert("Your restaurant was successfully submitted!");
+        setNewRestaurant({ name: "", address: "", phone: "", cuisine: "" });
+        setError("");
       })
       .catch((err) => {
         console.log(err);
+        setError(err.message);
       });
   };
 
@@ -35,18 +48,23 @@ const NewRestaurantForm = () => {
     e.preventDefault();
 
     try {
-      await saveFormData();
-      alert("Your restaurant was successfully submitted!");
-      setNewRestaurant({ name: "", address: "", phone: "", cuisine: "" });
-      window.location.reload();
+      const response = await saveFormData();
+      // window.location.reload();
     } catch (err) {
       alert(`Restaurant submission failed! ${err.message}`);
+      setError(`Restaurant submission failed! ${err.message}`);
     }
   };
 
   return (
     <form onSubmit={onSubmit}>
       <div className="mb-3">
+        {error && (
+          <p data-testid="error" style={{ color: "red", fontWeight: "bold" }}>
+            {error}
+          </p>
+        )}
+
         <label htmlFor="name" className="form-label">
           Name: *
         </label>
@@ -105,12 +123,8 @@ const NewRestaurantForm = () => {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={
-            !newRestaurant.name ||
-            !newRestaurant.address ||
-            !newRestaurant.phone ||
-            !newRestaurant.cuisine
-          }
+          disabled={isInvalid}
+          data-testid="submit"
         >
           Submit
         </button>
