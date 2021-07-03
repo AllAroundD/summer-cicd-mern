@@ -20,6 +20,7 @@ describe("NewRestaurantForm", () => {
     expect(phoneInput.value).toBe("888-888-8889");
     fireEvent.change(cuisineInput, { target: { value: "Chinese" } });
     expect(cuisineInput.value).toBe("Chinese");
+    fireEvent.click(getByTestId("submit"));
   });
 
   it("matches snapshot", () => {

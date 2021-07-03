@@ -73,6 +73,7 @@ exports[`NewRestaurantForm matches snapshot 1`] = `
     >
       <button
         class="btn btn-primary"
+        data-testid="submit"
         disabled=""
         type="submit"
       >
