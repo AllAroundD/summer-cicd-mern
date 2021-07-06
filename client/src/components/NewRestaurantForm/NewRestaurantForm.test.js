@@ -7,11 +7,14 @@ afterEach(cleanup);
 
 describe("NewRestaurantForm", () => {
   it("updates the input value on change", () => {
-    const { getByTestId } = render(<NewRestaurantForm />);
+    const { getByTestId, getByText } = render(<NewRestaurantForm />);
     const nameInput = getByTestId("restaurant-name");
     const addressInput = getByTestId("restaurant-address");
     const phoneInput = getByTestId("restaurant-phone");
     const cuisineInput = getByTestId("restaurant-cuisine");
+
+    window.alert = jest.fn();
+
     fireEvent.change(nameInput, { target: { value: "Waffle House" } });
     expect(nameInput.value).toBe("Waffle House");
     fireEvent.change(addressInput, { target: { value: "1212 Yonge Street" } });
@@ -21,6 +24,10 @@ describe("NewRestaurantForm", () => {
     fireEvent.change(cuisineInput, { target: { value: "Chinese" } });
     expect(cuisineInput.value).toBe("Chinese");
     fireEvent.click(getByTestId("submit"));
+
+    expect(window.alert).toHaveBeenCalledWith(
+      "Your restaurant was successfully submitted!"
+    );
   });
 
   it("matches snapshot", () => {
