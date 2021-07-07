@@ -13,7 +13,7 @@ describe("NewRestaurantForm", () => {
     const phoneInput = getByTestId("restaurant-phone");
     const cuisineInput = getByTestId("restaurant-cuisine");
 
-    window.alert = jest.fn();
+    // window.alert = jest.fn();
 
     fireEvent.change(nameInput, { target: { value: "Waffle House" } });
     expect(nameInput.value).toBe("Waffle House");
@@ -25,9 +25,15 @@ describe("NewRestaurantForm", () => {
     expect(cuisineInput.value).toBe("Chinese");
     fireEvent.click(getByTestId("submit"));
 
-    expect(window.alert).toHaveBeenCalledWith(
-      "Your restaurant was successfully submitted!"
-    );
+    // expect(window.alert).toHaveBeenCalledWith(
+    //   "Your restaurant was successfully submitted!"
+    // );
+
+    // TODO: Check for cleared out values
+    // expect(nameInput.value).toBe("");
+    // expect(addressInput.value).toBe("");
+    // expect(phoneInput.value).toBe("");
+    // expect(cuisineInput.value).toBe("");
   });
 
   it("matches snapshot", () => {

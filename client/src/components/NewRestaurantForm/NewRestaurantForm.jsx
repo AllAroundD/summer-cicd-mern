@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import validatePhoneNumber from "../../utils/validatePhoneNumber";
 
-const NewRestaurantForm = () => {
-  const [name, setName] = useState("");
+const NewRestaurantForm = ({ getRestaurants }) => {
   const [newRestaurant, setNewRestaurant] = useState({
     name: "",
     address: "",
@@ -37,6 +36,8 @@ const NewRestaurantForm = () => {
         alert("Your restaurant was successfully submitted!");
         setNewRestaurant({ name: "", address: "", phone: "", cuisine: "" });
         setError("");
+        getRestaurants();
+        document.getElementById("name").focus();
       })
       .catch((err) => {
         console.log(err);
