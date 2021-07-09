@@ -3,6 +3,13 @@
 exports[`NewRestaurantForm matches snapshot 1`] = `
 <DocumentFragment>
   <form>
+    <div>
+      <p
+        class="status"
+        data-testid="status"
+        style="color: green; font-weight: bold;"
+      />
+    </div>
     <div
       class="mb-3"
     >

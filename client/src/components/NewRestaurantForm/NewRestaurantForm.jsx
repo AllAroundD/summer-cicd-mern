@@ -10,6 +10,9 @@ const NewRestaurantForm = ({ getRestaurants }) => {
     cuisine: "",
   });
   const [error, setError] = useState("");
+  const [msg, setMessage] = useState("");
+
+  const status = document.querySelector(".status");
 
   const isInvalid =
     newRestaurant.name === "" ||
@@ -28,12 +31,13 @@ const NewRestaurantForm = ({ getRestaurants }) => {
   };
 
   const saveFormData = async () => {
-    let status;
     axios
       .post("/api/restaurants", newRestaurant)
       .then((response) => {
         // console.log(response.data);
-        alert("Your restaurant was successfully submitted!");
+        // setMessage("Your restaurant was successfully submitted!");
+        status.innerText = "Your restaurant was successfully submitted!";
+        // alert("Your restaurant was successfully submitted!");
         setNewRestaurant({ name: "", address: "", phone: "", cuisine: "" });
         setError("");
         getRestaurants();
@@ -52,20 +56,28 @@ const NewRestaurantForm = ({ getRestaurants }) => {
       const response = await saveFormData();
       // window.location.reload();
     } catch (err) {
-      alert(`Restaurant submission failed! ${err.message}`);
+      // alert(`Restaurant submission failed! ${err.message}`);
       setError(`Restaurant submission failed! ${err.message}`);
     }
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="mb-3">
+      <div>
         {error && (
           <p data-testid="error" style={{ color: "red", fontWeight: "bold" }}>
             {error}
           </p>
         )}
-
+        <p
+          className="status"
+          data-testid="status"
+          style={{ color: "green", fontWeight: "bold" }}
+        >
+          {/* {msg} */}
+        </p>
+      </div>
+      <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Name: *
         </label>
