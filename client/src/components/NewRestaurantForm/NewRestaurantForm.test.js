@@ -13,6 +13,8 @@ describe("NewRestaurantForm", () => {
     const phoneInput = getByTestId("restaurant-phone");
     const cuisineInput = getByTestId("restaurant-cuisine");
 
+    // const message = getByTestId("status");
+
     // window.alert = jest.fn();
 
     fireEvent.change(nameInput, { target: { value: "Waffle House" } });
@@ -24,6 +26,10 @@ describe("NewRestaurantForm", () => {
     fireEvent.change(cuisineInput, { target: { value: "Chinese" } });
     expect(cuisineInput.value).toBe("Chinese");
     fireEvent.click(getByTestId("submit"));
+    // console.log(message.innerText);
+    // expect(message.innerText).toBe(
+    //   "Your restaurant was successfully submitted!"
+    // );
 
     // expect(window.alert).toHaveBeenCalledWith(
     //   "Your restaurant was successfully submitted!"
