@@ -1,45 +1,89 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+import axios from "axios";
 import NewRestaurantForm from "./NewRestaurantForm";
 
 afterEach(cleanup);
 
 describe("NewRestaurantForm", () => {
-  it("updates the input value on change", () => {
-    const { getByTestId, getByText } = render(<NewRestaurantForm />);
-    const nameInput = getByTestId("restaurant-name");
-    const addressInput = getByTestId("restaurant-address");
-    const phoneInput = getByTestId("restaurant-phone");
-    const cuisineInput = getByTestId("restaurant-cuisine");
-
-    // const message = getByTestId("status");
-
-    // window.alert = jest.fn();
-
+  it("updates the name input value on change", () => {
+    const { getByLabelText } = render(<NewRestaurantForm />);
+    const nameInput = getByLabelText("Name");
     fireEvent.change(nameInput, { target: { value: "Waffle House" } });
     expect(nameInput.value).toBe("Waffle House");
-    fireEvent.change(addressInput, { target: { value: "1212 Yonge Street" } });
-    expect(addressInput.value).toBe("1212 Yonge Street");
-    fireEvent.change(phoneInput, { target: { value: "888-888-8889" } });
-    expect(phoneInput.value).toBe("888-888-8889");
-    fireEvent.change(cuisineInput, { target: { value: "Chinese" } });
-    expect(cuisineInput.value).toBe("Chinese");
-    fireEvent.click(getByTestId("submit"));
-    // console.log(message.innerText);
-    // expect(message.innerText).toBe(
-    //   "Your restaurant was successfully submitted!"
-    // );
+  });
 
-    // expect(window.alert).toHaveBeenCalledWith(
-    //   "Your restaurant was successfully submitted!"
-    // );
+  it("updates the address input value on change", () => {
+    const { getByLabelText } = render(<NewRestaurantForm />);
+    const addressInput = getByLabelText("Address");
+    fireEvent.change(addressInput, {
+      target: { value: "1313 Mockingbird Lane" },
+    });
+    expect(addressInput.value).toBe("1313 Mockingbird Lane");
+  });
 
-    // TODO: Check for cleared out values
-    // expect(nameInput.value).toBe("");
-    // expect(addressInput.value).toBe("");
-    // expect(phoneInput.value).toBe("");
-    // expect(cuisineInput.value).toBe("");
+  it("updates the phone input value on change", () => {
+    const { getByLabelText } = render(<NewRestaurantForm />);
+    const addressInput = getByLabelText("Phone");
+    fireEvent.change(addressInput, {
+      target: { value: "555-555-5555" },
+    });
+    expect(addressInput.value).toBe("555-555-5555");
+  });
+
+  it("updates the cuisine input value on change", () => {
+    const { getByLabelText } = render(<NewRestaurantForm />);
+    const addressInput = getByLabelText("Cuisine");
+    fireEvent.change(addressInput, {
+      target: { value: "Seafood" },
+    });
+    expect(addressInput.value).toBe("Seafood");
+  });
+
+  it("should call axios when the form submits", () => {
+    // ARRANGE
+    axios.post = jest
+      .fn()
+      .mockImplementationOnce(() => Promise.resolve({ data: true }));
+    const { getByTestId } = render(<NewRestaurantForm />);
+    const form = getByTestId("restaurant-form");
+    // ACT
+    fireEvent.submit(form);
+    // ASSERT
+    expect(axios.post).toHaveBeenCalled();
+  });
+
+  it("should call the getRestaurants prop when the form submits", async () => {
+    // ARRANGE
+    const props = {
+      getRestaurants: jest.fn(),
+    };
+    axios.post = jest
+      .fn()
+      .mockImplementationOnce(() => Promise.resolve({ data: "successful" }));
+    const { getByTestId } = render(<NewRestaurantForm {...props} />);
+    const form = getByTestId("restaurant-form");
+    // ACT
+    await fireEvent.submit(form);
+    // ASSERT
+    await expect(props.getRestaurants).toHaveBeenCalled();
+  });
+
+  it("should wipe the input field values when the form submits", async () => {
+    // ARRANGE
+    axios.post = jest
+      .fn()
+      .mockImplementationOnce(() => Promise.resolve({ data: "successful" }));
+    const { getByLabelText, getByTestId } = render(<NewRestaurantForm />);
+    const form = getByTestId("restaurant-form");
+    // ACT
+    const nameInput = getByLabelText("Name");
+    await fireEvent.change(nameInput, { target: { value: "Waffle House" } });
+    await fireEvent.submit(form);
+    // ASSERT
+
+    await expect(nameInput.value).toBe("");
   });
 
   it("matches snapshot", () => {

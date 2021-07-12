@@ -1,144 +1,57 @@
 import React, { useState } from "react";
+import FormInput from "../FormInput/FormInput";
 import axios from "axios";
-import validatePhoneNumber from "../../utils/validatePhoneNumber";
 
 const NewRestaurantForm = ({ getRestaurants }) => {
-  const [newRestaurant, setNewRestaurant] = useState({
-    name: "",
-    address: "",
-    phone: "",
-    cuisine: "",
-  });
-  const [error, setError] = useState("");
-  const [msg, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cuisine, setCuisine] = useState("");
 
-  const status = document.querySelector(".status");
+  // 1. Make an API call to send the data.
+  // 2. if the call is successful, clear the form fields.
+  // 3. If the call is successful, use the prop method to retrieve all restaurants.
 
-  const isInvalid =
-    newRestaurant.name === "" ||
-    newRestaurant.address === "" ||
-    newRestaurant.phone === "" ||
-    !validatePhoneNumber(newRestaurant.phone) ||
-    newRestaurant.cuisine === "";
-
-  const onChange = (name) => {
-    return ({ target: { value } }) => {
-      setNewRestaurant((prevRestaurant) => ({
-        ...prevRestaurant,
-        [name]: value,
-      }));
-    };
-  };
-
-  const saveFormData = async () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     axios
-      .post("/api/restaurants", newRestaurant)
+      .post("/api/restaurants", { name, address, phone, cuisine })
       .then((response) => {
-        // console.log(response.data);
-        // setMessage("Your restaurant was successfully submitted!");
-        status.innerText = "Your restaurant was successfully submitted!";
-        // alert("Your restaurant was successfully submitted!");
-        setNewRestaurant({ name: "", address: "", phone: "", cuisine: "" });
-        setError("");
+        console.log(response.data);
+        setName("");
+        setAddress("");
+        setPhone("");
+        setCuisine("");
         getRestaurants();
-        document.getElementById("name").focus();
       })
       .catch((err) => {
         console.log(err);
-        setError(err.message);
       });
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await saveFormData();
-      // window.location.reload();
-    } catch (err) {
-      // alert(`Restaurant submission failed! ${err.message}`);
-      setError(`Restaurant submission failed! ${err.message}`);
-    }
-  };
-
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        {error && (
-          <p data-testid="error" style={{ color: "red", fontWeight: "bold" }}>
-            {error}
-          </p>
-        )}
-        <p
-          className="status"
-          data-testid="status"
-          style={{ color: "green", fontWeight: "bold" }}
-        >
-          {/* {msg} */}
-        </p>
-      </div>
-      <div className="mb-3">
-        <label htmlFor="name" className="form-label">
-          Name: *
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="name"
-          data-testid="restaurant-name"
-          name="name"
-          value={newRestaurant.name}
-          onChange={onChange("name")}
-          required
-        />
-        <label htmlFor="address" className="form-label">
-          Address: *
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="address"
-          data-testid="restaurant-address"
-          name="address"
-          value={newRestaurant.address}
-          onChange={onChange("address")}
-          required
-        />
-        <label htmlFor="phone" className="form-label">
-          Phone: *
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="phone"
-          data-testid="restaurant-phone"
-          name="phone"
-          value={newRestaurant.phone}
-          maxLength="12"
-          onChange={onChange("phone")}
-          required
-        />
-        <label htmlFor="cuisine" className="form-label">
-          Cuisine: *
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="cuisine"
-          data-testid="restaurant-cuisine"
-          name="cuisine"
-          value={newRestaurant.cuisine}
-          onChange={onChange("cuisine")}
-          required
-        />
-      </div>
+    <form onSubmit={handleSubmit} data-testid="restaurant-form">
+      <FormInput value={name} handleChange={setName} name="Name" id="name" />
+      <FormInput
+        value={address}
+        handleChange={setAddress}
+        name="Address"
+        id="restaurant-address"
+      />
+      <FormInput
+        value={phone}
+        handleChange={setPhone}
+        name="Phone"
+        id="restaurant-phone"
+      />
+      <FormInput
+        value={cuisine}
+        handleChange={setCuisine}
+        name="Cuisine"
+        id="restaurant-cuisine"
+      />
       <div className="text-center">
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={isInvalid}
-          data-testid="submit"
-        >
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </div>

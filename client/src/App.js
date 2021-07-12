@@ -6,6 +6,10 @@ import NewRestaurantForm from "./components/NewRestaurantForm/NewRestaurantForm"
 function App() {
   const [restaurants, setRestaurants] = useState([]);
 
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+
   const getRestaurants = () =>
     axios
       .get("/api/restaurants")
@@ -16,10 +20,6 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-
-  useEffect(() => {
-    getRestaurants();
-  }, []);
 
   return (
     <div className="container">
