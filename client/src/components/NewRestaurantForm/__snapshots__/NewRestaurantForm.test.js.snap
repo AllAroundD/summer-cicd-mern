@@ -2,14 +2,9 @@
 
 exports[`NewRestaurantForm matches snapshot 1`] = `
 <DocumentFragment>
-  <form>
-    <div>
-      <p
-        class="status"
-        data-testid="status"
-        style="color: green; font-weight: bold;"
-      />
-    </div>
+  <form
+    data-testid="restaurant-form"
+  >
     <div
       class="mb-3"
     >
@@ -17,60 +12,63 @@ exports[`NewRestaurantForm matches snapshot 1`] = `
         class="form-label"
         for="name"
       >
-        Name: *
+        Name
       </label>
       <input
         class="form-control"
-        data-testid="restaurant-name"
         id="name"
         name="name"
-        required=""
         type="text"
         value=""
       />
+    </div>
+    <div
+      class="mb-3"
+    >
       <label
         class="form-label"
-        for="address"
+        for="restaurant-address"
       >
-        Address: *
+        Address
       </label>
       <input
         class="form-control"
-        data-testid="restaurant-address"
-        id="address"
-        name="address"
-        required=""
+        id="restaurant-address"
+        name="restaurant-address"
         type="text"
         value=""
       />
+    </div>
+    <div
+      class="mb-3"
+    >
       <label
         class="form-label"
-        for="phone"
+        for="restaurant-phone"
       >
-        Phone: *
+        Phone
       </label>
       <input
         class="form-control"
-        data-testid="restaurant-phone"
-        id="phone"
-        maxlength="12"
-        name="phone"
-        required=""
+        id="restaurant-phone"
+        name="restaurant-phone"
         type="text"
         value=""
       />
+    </div>
+    <div
+      class="mb-3"
+    >
       <label
         class="form-label"
-        for="cuisine"
+        for="restaurant-cuisine"
       >
-        Cuisine: *
+        Cuisine
       </label>
       <input
         class="form-control"
-        data-testid="restaurant-cuisine"
-        id="cuisine"
-        name="cuisine"
-        required=""
+        id="restaurant-cuisine"
+        name="restaurant-cuisine"
         type="text"
         value=""
       />
@@ -80,8 +78,6 @@ exports[`NewRestaurantForm matches snapshot 1`] = `
     >
       <button
         class="btn btn-primary"
-        data-testid="submit"
-        disabled=""
         type="submit"
       >
         Submit
