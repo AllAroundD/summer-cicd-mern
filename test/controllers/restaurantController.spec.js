@@ -140,7 +140,8 @@ describe("restaurantController", () => {
       // Act
       await restaurantController.create(req, res);
       // Assert
-      expect(res.json).to.have.been.calledWith("new model");
+      expect(res.status).to.have.been.calledWith(201);
+      expect(statusJsonSpy).to.have.been.calledWith("new model");
     });
 
     it("should return an error message if an error occurs", async () => {
