@@ -24,12 +24,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3001/api/restaurants",
-					"protocol": "http",
+					"raw": "{{server}}/api/restaurants",
 					"host": [
-						"localhost"
+						"{{server}}"
 					],
-					"port": "3001",
 					"path": [
 						"api",
 						"restaurants"
@@ -214,14 +212,14 @@
 			"response": []
 		},
 		{
-			"name": "GET 422 Not Found",
+			"name": "GET 404 Not Found",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 422\", function () {",
-							"    pm.response.to.have.status(422);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -288,8 +286,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 404\", function () {",
-							"    pm.response.to.have.status(404);",
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -300,7 +298,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3001/api/restaurants/",
+					"raw": "http://localhost:3001/api/restaurants/banana",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -309,7 +307,7 @@
 					"path": [
 						"api",
 						"restaurants",
-						""
+						"banana"
 					]
 				}
 			},
@@ -333,6 +331,15 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"1313 Mockingbird Lane\",\n    \"phone\": \"555-555-5555\",\n    \"cuisine\": \"Seafood\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:3001/api/restaurants",
 					"protocol": "http",
@@ -350,6 +357,23 @@
 		},
 		{
 			"name": "Test Config",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"JSON body to have Success equal to true\", function () {",
+							"    pm.response.to.have.jsonBody({success: true});",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
