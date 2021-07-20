@@ -107,7 +107,7 @@ describe("restaurantController", () => {
       await console.log("---"); //adding this to delay the logging
 
       // Assert
-      expect(res.status).to.have.been.calledWith(422);
+      expect(res.status).to.have.been.calledWith(404);
       expect(statusJsonSpy).to.have.been.calledWith("error message");
     });
   });
