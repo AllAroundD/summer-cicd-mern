@@ -1,10 +1,13 @@
 {
-  "extends": ["prettier", "plugin:cypress/recommended"],
+  "extends": ["prettier"],
   "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 2020
   },
   "rules": {
     "prettier/prettier": "error"
+  },
+  "globals": {
+    "cy": true
   }
 }
