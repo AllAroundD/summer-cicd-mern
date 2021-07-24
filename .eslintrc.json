@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier"],
+  "extends": ["prettier", "plugin:cypress/recommended"],
   "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 2020
