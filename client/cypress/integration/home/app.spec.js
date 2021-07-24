@@ -1,3 +1,4 @@
+/* eslint no-undef: 0 */
 /// <reference types="cypress" />
 
 describe("homepage with default data", () => {
