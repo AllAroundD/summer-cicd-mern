@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const path = require("path");
 
 const routes = require("./routes");
 
@@ -19,7 +20,7 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    console.log("Successfully connected to MongoDB");
+    console.log("Successfully connected to MongoDB.");
   })
   .catch((err) => {
     console.log("Error connecting to MongoDB", err);

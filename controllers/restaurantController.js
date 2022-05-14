@@ -11,11 +11,12 @@ module.exports = {
   findById: function (req, res) {
     db.Restaurant.findById(req.params.id)
       .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
+      .catch((err) => res.status(404).json(err));
   },
   create: function (req, res) {
+    // console.log("req.body in create:", req.body);
     db.Restaurant.create(req.body)
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) => res.status(201).json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
   update: function (req, res) {
@@ -25,10 +26,15 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  // remove: function (req, res) {
+  //   db.Restaurant.findById({ _id: req.params.id })
+  //     .then((dbModel) => dbModel.remove())
+  //     .then((dbModel) => res.json(dbModel))
+  //     .catch((err) => res.status(422).json(err));
+  // },
   remove: function (req, res) {
-    db.Restaurant.findById({ _id: req.params.id })
-      .then((dbModel) => dbModel.remove())
-      .then((dbModel) => res.json(dbModel))
+    db.Restaurant.findByIdAndRemove({ _id: req.params.id })
+      .then(() => res.json({ success: true }))
       .catch((err) => res.status(422).json(err));
   },
 };
