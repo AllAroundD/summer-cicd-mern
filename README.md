@@ -29,3 +29,17 @@ This repo was made as part of the Summer CI/CD series from Jonathan Watson's Web
 Note: This application was built using Node 15.x. It also assumes you have MongoDB running as a service already.
 
 Happy Coding!
+
+![Pipeline](https://media.giphy.com/media/0cN8cSVPSGD8jcl4iS/giphy.gif)
+
+## Notes
+
+### Heroku Container Registry & Runtime
+
+https://devcenter.heroku.com/articles/container-registry-and-runtime
+
+### GitHub Action for Docker:
+
+https://github.com/marketplace/actions/build-push-and-release-a-docker-container-to-heroku
+
+### Docker command to run locally:
